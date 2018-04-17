@@ -5,7 +5,9 @@ import {
     SET_DIFFICULTY, 
     SET_DEALER_HAND, 
     SET_PLAYER_HAND, 
+    SET_PLAYER_STICK,
     DECLARE_RESULT,
+    RESET_GAME,
 } from '../core/constants';
 
 const defaultProps = {
@@ -64,36 +66,41 @@ const defaultProps = {
         {name: "hk", value: 10}, 
     ],
     difficulty: MEDIUM,
-    dealerScore: 0,
-    playerScore: 0,
     dealerHand: [],
     playerHand: [],
+    playerStick: false,
     history: [],
 };
 
 export default function(state = { ...defaultProps }, action) {
     switch(action.type) {
         case SET_DIFFICULTY:
-        return state;
+            return state;
         case SET_DEALER_HAND:
-        return { 
-            ...state, 
-            dealerHand: [ ...state.dealerHand, ...action.payload ], 
-            deck: state.deck.filter(card => action.payload.indexOf(card) === -1),
-        };
+            return { 
+                ...state, 
+                dealerHand: [ ...state.dealerHand, ...action.payload ], 
+                deck: state.deck.filter(card => action.payload.indexOf(card) === -1),
+            };
         case SET_PLAYER_HAND:
-        return { 
-            ...state, 
-            playerHand: [ ...state.playerHand, ...action.payload ],
-            // playerScore: [ ...state.playerHand, ...action.payload ].reduce((ttl, card) => {
-                
-            //     return ttl + card.value
-            // }, 0),
-            deck: state.deck.filter(card => action.payload.indexOf(card) === -1),
-        };
+            return { 
+                ...state, 
+                playerHand: [ ...state.playerHand, ...action.payload ],
+                deck: state.deck.filter(card => action.payload.indexOf(card) === -1),
+            };
+        case SET_PLAYER_STICK:
+            return { ...state, playerStick: true };
         case DECLARE_RESULT:
-        return { ...state, history: [ ...state.history, action.payload ]};
+            return { ...state, history: [ ...state.history, action.payload ]};
+        case RESET_GAME:
+            return { 
+                ...state, 
+                deck: [ ...defaultProps.deck ],
+                dealerHand: [],
+                playerHand: [],
+                playerStick: false,
+            };
         default:
-        return state;
+            return state;
     }
 }

@@ -17,6 +17,14 @@ class Blackjack extends Component {
     }
 
     componentDidUpdate(prevProps) {
+    	if(this.props.playerHand.length === 0) {
+    		this.fetchPlayersHand();
+    	}
+
+    	if(!prevProps.playerStick && this.props.playerStick) {
+    		console.log('Player has sticked, dealer\'s turn');
+    	}
+
     	if(prevProps.playerHand !== this.props.playerHand) {
     		const playerTtl = getHandTotal(this.props.playerHand);
     		if(playerTtl.length === 0) {
@@ -43,7 +51,7 @@ class Blackjack extends Component {
     	});
     }
 
-    handleClick = (e, a) => {
+    handleHitClick = (e, a) => {
     	fetchCard(this.props.deck, fetchPosition(this.props.deck.length-1, 0))
     	.then(resp => {
     		this.props.setPlayerHand(resp);
@@ -61,7 +69,9 @@ class Blackjack extends Component {
     		<Card.Group>
     			{this.props.playerHand.map(card => <Card key={`card-${card.name}`} name={card.name} />)}
     		</Card.Group>
-    		<button onClick={this.handleClick}>Hit</button>
+    		<button onClick={this.handleHitClick}>Hit</button>
+    		<button onClick={this.props.setPlayerStick}>Stick</button>
+    		<button onClick={this.props.resetGame}>Reset</button>
     	</div>;
     }
 }
