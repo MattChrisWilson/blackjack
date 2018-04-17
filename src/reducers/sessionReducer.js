@@ -1,20 +1,28 @@
-import { EASY, MEDIUM, HARD, SET_DIFFICULTY, SET_DEALER_SCORE, SET_PLAYER_SCORE, SET_GAME_HISTORY } from '../core/constants';
+import { 
+    EASY, 
+    MEDIUM, 
+    HARD, 
+    SET_DIFFICULTY, 
+    SET_DEALER_HAND, 
+    SET_PLAYER_HAND, 
+    DECLARE_RESULT,
+} from '../core/constants';
 
 const defaultProps = {
     deck: [
-        {name: "a1", value: [1, 11]}, 
-        {name: "a2", value: 2}, 
-        {name: "a3", value: 3}, 
-        {name: "a4", value: 4}, 
-        {name: "a5", value: 5}, 
-        {name: "a6", value: 6}, 
-        {name: "a7", value: 7}, 
-        {name: "a8", value: 8}, 
-        {name: "a9", value: 9}, 
-        {name: "a10", value: 10}, 
-        {name: "aj", value: 10}, 
-        {name: "aq", value: 10}, 
-        {name: "ak", value: 10}, 
+        {name: "c1", value: [1, 11]}, 
+        {name: "c2", value: 2}, 
+        {name: "c3", value: 3}, 
+        {name: "c4", value: 4}, 
+        {name: "c5", value: 5}, 
+        {name: "c6", value: 6}, 
+        {name: "c7", value: 7}, 
+        {name: "c8", value: 8}, 
+        {name: "c9", value: 9}, 
+        {name: "c10", value: 10}, 
+        {name: "cj", value: 10}, 
+        {name: "cq", value: 10}, 
+        {name: "ck", value: 10}, 
         {name: "s1", value: [1, 11]}, 
         {name: "s2", value: 2}, 
         {name: "s3", value: 3}, 
@@ -58,6 +66,8 @@ const defaultProps = {
     difficulty: MEDIUM,
     dealerScore: 0,
     playerScore: 0,
+    dealerHand: [],
+    playerHand: [],
     history: [],
 };
 
@@ -65,11 +75,23 @@ export default function(state = { ...defaultProps }, action) {
     switch(action.type) {
         case SET_DIFFICULTY:
         return state;
-        case SET_DEALER_SCORE:
-        return { ...state, dealerScore: action.payload };
-        case SET_PLAYER_SCORE:
-        return { ...state, playerScore: action.payload };
-        case SET_GAME_HISTORY:
+        case SET_DEALER_HAND:
+        return { 
+            ...state, 
+            dealerHand: [ ...state.dealerHand, ...action.payload ], 
+            deck: state.deck.filter(card => action.payload.indexOf(card) === -1),
+        };
+        case SET_PLAYER_HAND:
+        return { 
+            ...state, 
+            playerHand: [ ...state.playerHand, ...action.payload ],
+            // playerScore: [ ...state.playerHand, ...action.payload ].reduce((ttl, card) => {
+                
+            //     return ttl + card.value
+            // }, 0),
+            deck: state.deck.filter(card => action.payload.indexOf(card) === -1),
+        };
+        case DECLARE_RESULT:
         return { ...state, history: [ ...state.history, action.payload ]};
         default:
         return state;
