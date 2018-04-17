@@ -7,7 +7,7 @@ class Card extends Component {
     static Group = CardGroup;
 
     render() {
-        return <div className={`${this.props.classes} card`} style={{left: this.props.shiftLeft}} ><img src={`../../images/cards/${this.props.name}.svg`} /></div>
+        return <div className={`${this.props.classes} card`} style={{left: this.props.shiftLeft}} ><img src={`../../images/cards/${this.props.name}.svg`} alt={this.props.name} /></div>
     }
 }
 

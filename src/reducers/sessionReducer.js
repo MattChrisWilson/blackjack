@@ -70,6 +70,7 @@ const defaultProps = {
     playerHand: [],
     playerStick: false,
     history: [],
+    gameOver: false,
 };
 
 export default function(state = { ...defaultProps }, action) {
@@ -91,7 +92,7 @@ export default function(state = { ...defaultProps }, action) {
         case SET_PLAYER_STICK:
             return { ...state, playerStick: true };
         case DECLARE_RESULT:
-            return { ...state, history: [ ...state.history, action.payload ]};
+            return { ...state, gameOver: true, history: [ action.payload, ...state.history ].filter((entry, idx) => idx < 5)};
         case RESET_GAME:
             return { 
                 ...state, 
@@ -99,6 +100,7 @@ export default function(state = { ...defaultProps }, action) {
                 dealerHand: [],
                 playerHand: [],
                 playerStick: false,
+                gameOver: false,
             };
         default:
             return state;

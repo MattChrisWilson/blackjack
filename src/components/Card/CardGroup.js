@@ -12,7 +12,7 @@ const CardGroup = (props) => {
             });
             const left = (-100 * idx);
 
-            if(props.dealer && idx === lastChildIdx) {
+            if(props.hide && idx === lastChildIdx) {
                 return React.cloneElement(child, {
                   name: 'back',
                   classes,
@@ -26,11 +26,12 @@ const CardGroup = (props) => {
 }
 
 CardGroup.propTypes = {
-    dealer: PropTypes.bool.isRequired,
+    /** Should the most recent card be hidden? */
+    hide: PropTypes.bool.isRequired,
 }
 
 CardGroup.defaultProps = {
-    dealer: false,
+    hide: false,
 }
 
 export default CardGroup;

@@ -15,6 +15,8 @@ const mapStateToProps = (state, props) => {
         dealerHand: state.dealerHand,
         playerStick: state.playerStick,
         history: state.history,
+        gameOver: state.gameOver,
+        difficulty: state.difficulty,
 	}
 }
 
