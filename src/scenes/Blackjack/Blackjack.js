@@ -17,8 +17,8 @@ class Blackjack extends Component {
     }
 
     componentDidUpdate(prevProps) {
-    	if(this.props.playerHand.length === 0) {
-    		this.fetchPlayersHand();
+    	if(prevProps.playerHand.length === 0 && this.props.playerHand.length === 0) {
+    		return this.fetchPlayersHand();
     	}
 
     	if(!prevProps.playerStick && this.props.playerStick) {
