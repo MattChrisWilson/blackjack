@@ -27,6 +27,7 @@ class Blackjack extends Component {
 
     	if(prevProps.playerHand !== this.props.playerHand) {
     		const playerTtl = getHandTotal(this.props.playerHand);
+            console.log(this.props.playerHand, playerTtl)
     		if(playerTtl.length === 0) {
     			return this.props.declareResult('Player loses')
     		}

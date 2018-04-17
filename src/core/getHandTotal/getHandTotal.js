@@ -1,6 +1,8 @@
+import _ from 'lodash';
+
 const getTotal = (hand) => {
     return hand.reduce((ttl, entry) => {
-        const value = (Number.isNaN(entry.value)) ? entry.value : [ (entry.value*1) ];
+        const value = (_.isArray(entry.value)) ? entry.value : [ (entry.value*1) ];
         
         return ttl.map(curTtl => 
            value.map(val => curTtl + val)
