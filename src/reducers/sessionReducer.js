@@ -1,7 +1,7 @@
 import { EASY, MEDIUM, HARD, SET_DIFFICULTY, SET_DEALER_SCORE, SET_PLAYER_SCORE, SET_GAME_HISTORY } from '../core/constants';
 
 const defaultProps = {
-    deck: const deck = [
+    deck: [
         {name: "a1", value: [1, 11]}, 
         {name: "a2", value: 2}, 
         {name: "a3", value: 3}, 
@@ -58,7 +58,7 @@ const defaultProps = {
     difficulty: MEDIUM,
     dealerScore: 0,
     playerScore: 0,
-    history: {},
+    history: [],
 };
 
 export default function(state = { ...defaultProps }, action) {
@@ -70,7 +70,7 @@ export default function(state = { ...defaultProps }, action) {
         case SET_PLAYER_SCORE:
         return { ...state, playerScore: action.payload };
         case SET_GAME_HISTORY:
-        return { ...state, history: { ...state.history, action.payload }};
+        return { ...state, history: [ ...state.history, action.payload ]};
         default:
         return state;
     }

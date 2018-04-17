@@ -22,4 +22,8 @@ describe('fetchPosition()', () => {
 	test('Returns a number greater than 0', () => 
 		expect(fetchPosition(51, 0)).resolves.toBeGreaterThanOrEqual(0)
 	);
+
+	test('Returns an array of two values', () => 
+		expect(fetchPosition(51, 0, { count: 2 })).resolves.toHaveLength(2)
+	);
 })
